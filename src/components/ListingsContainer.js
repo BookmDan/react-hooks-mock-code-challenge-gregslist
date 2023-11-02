@@ -4,10 +4,16 @@ import Search from "./Search"
 
 function ListingsContainer() {
   const [listings, setListings] = useState([])
+  const [sortedListings, setSortedListings] = useState([])
 
   useEffect(() => {
     fetchData()
-  }, [])
+
+    const sorted = [...listings].sort((a, b) => 
+      a.location.localeCompare(b.location)
+    )
+    setSortedListings(sorted)
+  }, [listings])
 
   const fetchData = () => {
     fetch('http://localhost:6001/listings')
